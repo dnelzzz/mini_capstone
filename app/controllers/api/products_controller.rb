@@ -16,8 +16,11 @@ class Api::ProductsController < ApplicationController
       image_url: params["input_image_url"],
       description: params["input_description"]
       )
-    @product.save
-    render "show.json.jbuilder"
+    if @product.save
+      render "show.json.jbuilder"
+    else
+      render json: {errors: @product.errors.full_messages}
+    end
   end
 
   def show
@@ -31,13 +34,20 @@ class Api::ProductsController < ApplicationController
     @product.price = params["input_price"] || @product.price
     @product.image_url = params["input_image_url"] || @product.image_url
     @product.description = params["input_description"] || @product.description
-    @product.save
-    render "show.json.jbuilder"
+    if @product.save
+      render "show.json.jbuilder"
+    else
+      render json: {errors: @product.errors.full_messages}
+    end
   end
 
   def destroy
     @product = Product.find_by(id: params[:id])
-    @product.destroy
+    if @product 
+      @product.destroy
+    else
+      render json: {Error: "This product doesn't exist"}
+    end
   end
   
 end
