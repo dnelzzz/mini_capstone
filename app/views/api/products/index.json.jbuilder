@@ -6,5 +6,5 @@ json.array! @sorted_products.each do |sorted_product|
   json.description sorted_product.description
   json.discounted sorted_product.is_discounted?
   json.tax sorted_product.tax
-  json.total sorted_product.total
+  json.total sorted_product.total  
 end
