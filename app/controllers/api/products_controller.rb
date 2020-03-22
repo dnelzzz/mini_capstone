@@ -1,6 +1,11 @@
 class Api::ProductsController < ApplicationController
   def index
     @products = Product.all
+    selected = Product.where(name: params[:input_name])
+    if selected.length > 0
+      @products = selected
+    end
+    @sorted_products = @products.sort_by { |product| product[:id] }
     render "index.json.jbuilder"
   end
 
@@ -34,5 +39,5 @@ class Api::ProductsController < ApplicationController
     @product = Product.find_by(id: params[:id])
     @product.destroy
   end
-
+  
 end
