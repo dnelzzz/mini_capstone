@@ -1,4 +1,6 @@
 class Api::ProductsController < ApplicationController
+  before_action :authenticate_user, except :index
+
   def index
     @products = Product.all
     selected = Product.where(name: params[:input_name])
