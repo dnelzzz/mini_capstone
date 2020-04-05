@@ -20,7 +20,7 @@ class Api::ProductsController < ApplicationController
       )
     if @product.save
       render "show.json.jbuilder"
-    else
+    else  
       render json: {errors: @product.errors.full_messages}
     end
   end
