@@ -1,5 +1,5 @@
 class Api::ProductsController < ApplicationController
-  before_action :authenticate_admin, except: [:index, :show]
+  # before_action :authenticate_admin, except: [:index, :show]
 
   def index
     @products = Product.all
@@ -17,10 +17,10 @@ class Api::ProductsController < ApplicationController
       price: params["input_price"],
       description: params["input_description"],
       supplier_id: params["input_supplier_id"]
-      )
+    )
     if @product.save
       render "show.json.jbuilder"
-    else  
+    else
       render json: {errors: @product.errors.full_messages}
     end
   end
